@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login | Your Brand
+{% endblock %}
+
+{% block content %}
+
+<main class="auth-page">
+
+    <div class="auth-container">
+
+        <!-- LOGIN HEADER -->
+
+        <div class="auth-header">
+
+            <p class="auth-small-title">
+                WELCOME BACK
+            </p>
+
+            <h1>
+                LOGIN
+            </h1>
+
+            <p class="auth-subtitle">
+                Sign in to continue shopping with us.
+            </p>
+
+        </div>
+
+
+        <!-- LOGIN FORM -->
+
+        <form method="POST" class="auth-form">
+
+            {% csrf_token %}
+
+
+            <!-- ERROR MESSAGE -->
+
+            {% if error %}
+
+                <div class="auth-error">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- EMAIL -->
+
+            <div class="auth-field">
+
+                <label for="email">
+                    EMAIL
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="auth-field">
+
+                <label for="password">
+                    PASSWORD
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+                type="submit"
+                class="auth-button"
+            >
+                LOGIN
+            </button>
+
+        </form>
+
+
+        <!-- SIGNUP LINK -->
+
+        <div class="auth-footer">
+
+            <p>
+                Don't have an account?
+                <a href="{% url 'signup' %}">
+                    CREATE ACCOUNT
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+{% endblock %}

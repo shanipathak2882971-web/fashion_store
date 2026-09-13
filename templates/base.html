@@ -1,0 +1,390 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Your Brand
+        {% endblock %}
+    </title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="header-container">
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <a href="{% url 'home' %}">
+                YOUR BRAND
+            </a>
+
+        </div>
+
+
+        <!-- ================= DESKTOP NAVIGATION ================= -->
+
+        <nav class="nav">
+
+            <a href="{% url 'shop' %}?category=Men">
+                MEN
+            </a>
+
+            <a href="{% url 'shop' %}?category=Women">
+                WOMEN
+            </a>
+
+            <a href="{% url 'shop' %}">
+                COLLECTIONS
+            </a>
+
+            <a href="{% url 'shop' %}?sort=newest">
+                NEW ARRIVALS
+            </a>
+
+            <a href="{% url 'shop' %}?category=Sale">
+                SALE
+            </a>
+
+        </nav>
+
+
+        <!-- ================= HEADER ICONS ================= -->
+
+        <div class="header-icons">
+
+            <!-- SEARCH -->
+
+            <a href="{% url 'shop' %}?focus=search" title="Search">
+                🔍
+            </a>
+
+
+            <!-- ACCOUNT -->
+
+            {% if user.is_authenticated %}
+
+                <a href="{% url 'account' %}" title="Account">
+                    👤
+                </a>
+
+                <a href="{% url 'logout' %}" title="Logout">
+                    LOGOUT
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'login' %}" title="Login">
+                    👤
+                </a>
+
+            {% endif %}
+
+
+            <!-- WISHLIST -->
+
+            <a href="{% url 'wishlist' %}" title="Wishlist">
+
+                ♡
+
+                {% if wishlist_count > 0 %}
+
+                    <span class="nav-count">
+                        {{ wishlist_count }}
+                    </span>
+
+                {% endif %}
+
+            </a>
+
+
+            <!-- BAG -->
+
+            <a href="{% url 'cart' %}" title="Bag">
+
+                🛍
+
+                {% if cart_count > 0 %}
+
+                    <span class="nav-count">
+                        {{ cart_count }}
+                    </span>
+
+                {% endif %}
+
+            </a>
+
+
+            <!-- MOBILE MENU BUTTON -->
+
+            <button
+                class="mobile-menu-btn"
+                type="button"
+                onclick="toggleMobileMenu()"
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+        </div>
+
+
+        <!-- ================= MOBILE NAVIGATION ================= -->
+
+        <div class="mobile-nav" id="mobileNav">
+
+            <a href="{% url 'shop' %}?category=Men">
+                MEN
+            </a>
+
+            <a href="{% url 'shop' %}?category=Women">
+                WOMEN
+            </a>
+
+            <a href="{% url 'shop' %}">
+                COLLECTIONS
+            </a>
+
+            <a href="{% url 'shop' %}?sort=newest">
+                NEW ARRIVALS
+            </a>
+
+            <a href="{% url 'shop' %}?category=Sale">
+                SALE
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ================= PAGE CONTENT ================= -->
+
+{% block content %}
+{% endblock %}
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-content">
+
+
+            <!-- BRAND -->
+
+            <div>
+
+                <h3>
+                    YOUR BRAND
+                </h3>
+
+                <p>
+                    Premium fashion for modern lifestyles.
+                </p>
+
+            </div>
+
+
+            <!-- SHOP -->
+
+            <div>
+
+                <h4>
+                    SHOP
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="{% url 'shop' %}">
+                        SHOP
+                    </a>
+
+                    <a href="{% url 'shop' %}?category=Men">
+                        Men
+                    </a>
+
+                    <a href="{% url 'shop' %}?category=Women">
+                        Women
+                    </a>
+
+                    <a href="{% url 'shop' %}?sort=newest">
+                        New Arrivals
+                    </a>
+
+                    <a href="{% url 'shop' %}">
+                        Best Sellers
+                    </a>
+
+                    <a href="{% url 'shop' %}?category=Sale">
+                        Sale
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- HELP -->
+
+            <div>
+
+                <h4>
+                    HELP
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="#">
+                        Order Tracking
+                    </a>
+
+                    <a href="#">
+                        Shipping
+                    </a>
+
+                    <a href="#">
+                        Returns
+                    </a>
+
+                    <a href="#">
+                        FAQs
+                    </a>
+
+                    <a href="#">
+                        Contact Us
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- ABOUT -->
+
+            <div>
+
+                <h4>
+                    ABOUT
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="#">
+                        About Us
+                    </a>
+
+                    <a href="#">
+                        Stores
+                    </a>
+
+                    <a href="#">
+                        Careers
+                    </a>
+
+                    <a href="#">
+                        Blog
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- POLICIES -->
+
+            <div>
+
+                <h4>
+                    POLICIES
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="#">
+                        Privacy Policy
+                    </a>
+
+                    <a href="#">
+                        Terms
+                    </a>
+
+                    <a href="#">
+                        Refund Policy
+                    </a>
+
+                    <a href="#">
+                        Cookie Policy
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================= FOOTER BOTTOM ================= -->
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 YOUR BRAND
+            </p>
+
+            <p>
+                Instagram | Facebook | Pinterest
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= MOBILE MENU JAVASCRIPT ================= -->
+
+<script>
+
+    function toggleMobileMenu() {
+
+        const mobileNav = document.getElementById("mobileNav");
+
+        if (mobileNav) {
+
+            mobileNav.classList.toggle("active");
+
+        }
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

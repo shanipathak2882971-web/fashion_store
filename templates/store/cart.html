@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}
+Shopping Bag | Your Brand
+{% endblock %}
+
+{% block content %}
+
+<main class="cart-page">
+
+    <section class="cart-header">
+
+        <p>YOUR ITEMS</p>
+
+        <h1>SHOPPING BAG</h1>
+
+    </section>
+
+
+    <section class="cart-container">
+
+        {% for item in cart_items %}
+
+            <div class="cart-item">
+
+                <div class="cart-item-image">
+
+                    {% if item.product.image %}
+
+                        <img
+                            src="{{ item.product.image.url }}"
+                            alt="{{ item.product.name }}"
+                        >
+
+                    {% else %}
+
+                        <div class="no-image">
+                            NO IMAGE
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="cart-item-info">
+
+                    <h2>
+                        {{ item.product.name }}
+                    </h2>
+
+                    <p>
+                        ₹{{ item.product.price }}
+                    </p>
+
+                    <div class="quantity-controls">
+                         <a href="{% url 'update_cart_quantity' item.id 'decrease' %}">
+                             −
+                         </a>
+
+                         <span>{{ item.quantity }}</span>
+
+                         <a href="{% url 'update_cart_quantity' item.id 'increase' %}">
+                             +
+                         </a>
+                    </div>
+                    <a href="{% url 'remove_from_cart' item.id %}" class="remove-item">REMOVE</a>
+
+                    <a
+                      href="{% url 'add_to_wishlist' item.product.id %}"
+                      class="cart-wishlist-button"
+                    >
+                             ♡ MOVE TO WISHLIST
+                    </a>
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <div class="empty-cart">
+
+                <h2>Your bag is empty</h2>
+
+                <a href="{% url 'shop' %}">
+                    CONTINUE SHOPPING
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+
+        {% if cart_items %}
+
+            <div class="cart-summary">
+
+                <h2>
+                    TOTAL: ₹{{ total }}
+                </h2>
+
+                <a href="{% url 'checkout' %}" class="checkout-button">
+                   CHECKOUT
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+{% endblock %}

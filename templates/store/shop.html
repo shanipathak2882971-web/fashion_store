@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block title %}
+Shop | Your Brand
+{% endblock %}
+
+{% block content %}
+
+<main class="shop-page">
+
+    <!-- ================= SHOP HEADER ================= -->
+
+    <section class="shop-header">
+
+        <p class="shop-small-title">
+            OUR COLLECTION
+        </p>
+
+        <h1>
+            SHOP
+        </h1>
+
+        <p class="shop-description">
+            Discover our latest collection of fashion and essentials.
+        </p>
+
+    </section>
+
+
+    <!-- ================= PRODUCTS AREA ================= -->
+
+    <section class="shop-products">
+
+        <!-- ================= SEARCH + SORT ================= -->
+
+        <div class="shop-topbar">
+
+            <p>
+                {{ products|length }} Products
+            </p>
+
+
+            <form method="GET" class="shop-controls">
+
+                <!-- SEARCH -->
+
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ search }}"
+                    placeholder="Search products..."
+                >
+
+
+                <!-- CATEGORY PRESERVE -->
+
+                {% if category %}
+
+                    <input
+                        type="hidden"
+                        name="category"
+                        value="{{ category }}"
+                    >
+
+                {% endif %}
+
+
+                <!-- SORT -->
+
+                <select
+                    name="sort"
+                    onchange="this.form.submit()"
+                >
+
+                    <option
+                        value=""
+                        {% if not sort %}selected{% endif %}
+                    >
+                        Sort By
+                    </option>
+
+
+                    <option
+                        value="newest"
+                        {% if sort == "newest" %}selected{% endif %}
+                    >
+                        Newest
+                    </option>
+
+
+                    <option
+                        value="price_low"
+                        {% if sort == "price_low" %}selected{% endif %}
+                    >
+                        Price: Low to High
+                    </option>
+
+
+                    <option
+                        value="price_high"
+                        {% if sort == "price_high" %}selected{% endif %}
+                    >
+                        Price: High to Low
+                    </option>
+
+                </select>
+
+
+                <!-- SEARCH BUTTON -->
+
+                <button type="submit">
+                    SEARCH
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- ================= ACTIVE CATEGORY ================= -->
+
+        {% if category %}
+
+            <div class="active-category">
+
+                <span>
+                    Showing:
+                </span>
+
+                <strong>
+                    {{ category }}
+                </strong>
+
+                <a href="{% url 'shop' %}">
+                    CLEAR
+                </a>
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- ================= PRODUCT GRID ================= -->
+
+        <div class="product-grid">
+
+            {% for product in products %}
+
+                <div class="product-card">
+
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <a
+                        href="{% url 'product_detail' product.id %}"
+                        class="product-link"
+                    >
+
+                        <div class="product-image">
+
+                            {% if product.image %}
+
+                                <img
+                                    src="{{ product.image.url }}"
+                                    alt="{{ product.name }}"
+                                >
+
+                            {% else %}
+
+                                <div class="no-image">
+                                    NO IMAGE
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- PRODUCT INFORMATION -->
+
+                    <div class="product-info">
+
+                        <h3>
+                            {{ product.name }}
+                        </h3>
+
+
+                        <p class="product-price">
+                            ₹{{ product.price }}
+                        </p>
+
+
+                        <a
+                            href="{% url 'add_to_cart' product.id %}"
+                            class="add-to-bag"
+                        >
+                            ADD TO BAG
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+            {% empty %}
+
+                <div class="no-products">
+
+                    <p>
+                        No products found.
+                    </p>
+
+                    <a href="{% url 'shop' %}">
+                        VIEW ALL PRODUCTS
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= SEARCH AUTO FOCUS ================= -->
+
+<script>
+
+    const searchInput =
+        document.querySelector('input[name="search"]');
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+
+    if (
+        params.get("focus") === "search"
+        && searchInput
+    ) {
+
+        searchInput.focus();
+
+    }
+
+</script>
+
+
+{% endblock %}

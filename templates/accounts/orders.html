@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Orders | Your Brand
+{% endblock %}
+
+{% block content %}
+
+<main class="account-page">
+
+    <div class="account-container">
+
+        <div class="account-header">
+
+            <p class="account-small-title">
+                YOUR SHOPPING
+            </p>
+
+            <h1>
+                MY ORDERS
+            </h1>
+
+            <p>
+                View your order history and order details.
+            </p>
+
+        </div>
+
+
+        {% if orders %}
+
+            <div class="orders-list">
+
+                {% for order in orders %}
+
+                    <div class="order-card">
+
+                        <div class="order-top">
+
+                            <div>
+                                <span>ORDER ID</span>
+                                <strong>
+                                    #{{ order.id }}
+                                </strong>
+                            </div>
+
+                            <div class="order-status">
+                                {{ order.status }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="order-details">
+
+                            <div class="order-row">
+                                <span>DATE</span>
+                                <strong>
+                                    {{ order.created_at|date:"d M Y" }}
+                                </strong>
+                            </div>
+
+                            <div class="order-row">
+                                <span>TOTAL</span>
+                                <strong>
+                                    ₹{{ order.total_amount }}
+                                </strong>
+                            </div>
+
+                            <div class="order-row">
+                                <span>PAYMENT</span>
+                                <strong>
+                                    {{ order.payment_method }}
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-orders">
+
+                <p class="empty-orders-title">
+                    NO ORDERS YET
+                </p>
+
+                <p>
+                    You haven't placed any orders yet.
+                </p>
+
+                <a href="{% url 'shop' %}">
+                    START SHOPPING
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+Order Confirmed | Your Brand
+{% endblock %}
+
+{% block content %}
+
+<main class="success-page">
+
+    <div class="success-container">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <p class="success-small-title">
+            THANK YOU
+        </p>
+
+        <h1>
+            ORDER CONFIRMED
+        </h1>
+
+        <p class="success-message">
+            Your order has been placed successfully.
+            We have received your order and will process it shortly.
+        </p>
+
+        <div class="success-actions">
+
+            <a href="{% url 'my_orders' %}" class="success-button">
+                VIEW MY ORDERS
+            </a>
+
+            <a href="{% url 'shop' %}" class="success-button secondary">
+                CONTINUE SHOPPING
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+{% endblock %}

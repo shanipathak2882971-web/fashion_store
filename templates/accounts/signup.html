@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Account | Your Brand
+{% endblock %}
+
+{% block content %}
+
+<main class="auth-page">
+
+    <div class="auth-container">
+
+        <div class="auth-header">
+
+            <p class="auth-small-title">
+                JOIN US
+            </p>
+
+            <h1>
+                CREATE ACCOUNT
+            </h1>
+
+            <p class="auth-subtitle">
+                Create your account and start shopping with us.
+            </p>
+
+        </div>
+
+
+        <form method="POST" class="auth-form">
+
+            {% csrf_token %}
+
+
+            {% if error %}
+
+                <div class="auth-error">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- NAME -->
+
+            <div class="auth-field">
+
+                <label for="name">
+                    NAME
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="auth-field">
+
+                <label for="email">
+                    EMAIL
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="auth-field">
+
+                <label for="password">
+                    PASSWORD
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="auth-field">
+
+                <label for="confirm_password">
+                    CONFIRM PASSWORD
+                </label>
+
+                <input
+                    type="password"
+                    id="confirm_password"
+                    name="confirm_password"
+                    placeholder="Confirm your password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- SIGNUP BUTTON -->
+
+            <button
+                type="submit"
+                class="auth-button"
+            >
+                CREATE ACCOUNT
+            </button>
+
+        </form>
+
+
+        <div class="auth-footer">
+
+            <p>
+                Already have an account?
+                <a href="{% url 'login' %}">
+                    LOGIN
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+{% endblock %}

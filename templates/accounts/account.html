@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Account | Your Brand
+{% endblock %}
+
+{% block content %}
+
+<main class="account-page">
+
+    <div class="account-container">
+
+        <div class="account-header">
+            <p class="account-small-title">WELCOME BACK</p>
+
+            <h1>MY ACCOUNT</h1>
+
+            <p>
+                Manage your account and shopping activity.
+            </p>
+        </div>
+
+
+        <!-- USER INFORMATION -->
+
+        <div class="account-info">
+
+            <div class="account-row">
+                <span>NAME</span>
+                <strong>
+                    {{ user.first_name }}
+                </strong>
+            </div>
+
+            <div class="account-row">
+                <span>EMAIL</span>
+                <strong>
+                    {{ user.email }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- ACCOUNT ACTIONS -->
+
+        <div class="account-actions">
+
+            <a href="{% url 'my_orders' %}">
+                MY ORDERS
+            </a>
+
+            <a href="{% url 'wishlist' %}">
+                MY WISHLIST
+            </a>
+
+            <a href="{% url 'cart' %}">
+                MY BAG
+            </a>
+
+            <a href="{% url 'shop' %}">
+                CONTINUE SHOPPING
+            </a>
+
+            <a href="{% url 'logout' %}" class="account-logout">
+                LOGOUT
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}
+Wishlist | Your Brand
+{% endblock %}
+
+{% block content %}
+
+<main class="wishlist-page">
+
+    <section class="wishlist-header">
+        <p>YOUR SAVED ITEMS</p>
+        <h1>WISHLIST</h1>
+    </section>
+
+    <section class="wishlist-container">
+
+        {% for item in wishlist_items %}
+
+            <div class="wishlist-item">
+
+                <div class="wishlist-item-image">
+
+                    {% if item.product.image %}
+
+                        <img
+                            src="{{ item.product.image.url }}"
+                            alt="{{ item.product.name }}"
+                        >
+
+                    {% else %}
+
+                        <div class="no-image">
+                            NO IMAGE
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="wishlist-item-info">
+
+                    <h2>
+                        {{ item.product.name }}
+                    </h2>
+
+                    <p>
+                        ₹{{ item.product.price }}
+                    </p>
+
+                    <div class="wishlist-actions">
+
+    <div class="wishlist-action">
+        <a
+            href="{% url 'product_detail' item.product.id %}"
+            class="wishlist-view-button"
+        >
+            VIEW PRODUCT
+        </a>
+    </div>
+
+    
+    <div class="wishlist-action">
+        <a
+            href="{% url 'wishlist_add_to_cart' item.id %}"
+            class="wishlist-add-bag-button"
+        >
+            ADD TO BAG
+        </a>
+    </div>
+    
+
+    <div class="wishlist-action">
+        <a
+            href="{% url 'remove_from_wishlist' item.id %}"
+            class="wishlist-remove-button"
+        >
+            REMOVE
+        </a>
+    </div>
+
+</div>
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <div class="empty-wishlist">
+
+                <h2>
+                    Your wishlist is empty
+                </h2>
+
+                <a href="{% url 'shop' %}">
+                    CONTINUE SHOPPING
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    </section>
+
+</main>
+
+{% endblock %}

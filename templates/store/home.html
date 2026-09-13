@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home | Your Brand
+{% endblock %}
+
+{% block content %}
+
+<main>
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="hero-small-title">
+                NEW SEASON
+            </p>
+
+            <h1>
+                THE NEW COLLECTION
+            </h1>
+
+            <p class="hero-description">
+                Discover the latest styles for modern lifestyles.
+            </p>
+
+            <a href="{% url 'shop' %}" class="hero-button">
+                SHOP NOW
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CATEGORY SECTION
+    ====================================================== -->
+
+    <section class="categories">
+
+        <a
+            href="{% url 'shop' %}?category=Men"
+            class="category"
+        >
+            <h2>MEN</h2>
+            <p>SHOP MEN →</p>
+        </a>
+
+
+        <a
+            href="{% url 'shop' %}?category=Women"
+            class="category"
+        >
+            <h2>WOMEN</h2>
+            <p>SHOP WOMEN →</p>
+        </a>
+
+
+        <a
+            href="{% url 'shop' %}"
+            class="category"
+        >
+            <h2>COLLECTIONS</h2>
+            <p>EXPLORE →</p>
+        </a>
+
+    </section>
+
+
+    <!-- =====================================================
+         FEATURED PRODUCTS
+    ====================================================== -->
+
+    <section class="products-section">
+
+        <div class="section-heading">
+
+            <p>
+                OUR COLLECTION
+            </p>
+
+            <h2>
+                FEATURED PRODUCTS
+            </h2>
+
+        </div>
+
+
+        <div class="product-grid">
+
+            {% for product in products|slice:":8" %}
+
+                <div class="product-card">
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <a
+                        href="{% url 'product_detail' product.id %}"
+                        class="product-link"
+                    >
+
+                        <div class="product-image">
+
+                            {% if product.image %}
+
+                                <img
+                                    src="{{ product.image.url }}"
+                                    alt="{{ product.name }}"
+                                >
+
+                            {% else %}
+
+                                <div class="no-image">
+                                    NO IMAGE
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- PRODUCT INFORMATION -->
+
+                    <div class="product-info">
+
+                        <h3>
+                            {{ product.name }}
+                        </h3>
+
+                        <p class="product-price">
+                            ₹{{ product.price }}
+                        </p>
+
+                        <a
+                            href="{% url 'add_to_cart' product.id %}"
+                            class="add-to-bag"
+                        >
+                            ADD TO BAG
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p class="no-products">
+                    No products available yet.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- VIEW ALL -->
+
+        {% if products %}
+
+            <div class="home-shop-button">
+
+                <a href="{% url 'shop' %}">
+                    VIEW ALL PRODUCTS
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =====================================================
+         NEW ARRIVALS
+    ====================================================== -->
+
+    <section class="home-promo">
+
+        <div class="home-promo-content">
+
+            <p>
+                JUST IN
+            </p>
+
+            <h2>
+                NEW ARRIVALS
+            </h2>
+
+            <span>
+                Discover the latest additions to our collection.
+            </span>
+
+            <a
+                href="{% url 'shop' %}?sort=newest"
+                class="hero-button"
+            >
+                SHOP NEW ARRIVALS
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+{% endblock %}
